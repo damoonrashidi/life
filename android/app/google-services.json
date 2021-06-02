@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "289021283857",
+    "project_id": "life-6f884",
+    "storage_bucket": "life-6f884.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289021283857:android:c21dda01197c0cad782bb0",
+        "android_client_info": {
+          "package_name": "com.damoonrashidi.life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "289021283857-ua4108llhtg9a3cvq2gb66o9qq6mahnr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.damoonrashidi.life",
+            "certificate_hash": "5fbd19b95067fd8a9024ad9c35ccb71abfa88064"
+          }
+        },
+        {
+          "client_id": "289021283857-jivn33b6982miieq0hlp5n6nnj1hltvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTq90aXOAxDHBTfXHZl-DWrevkMT0TiI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "289021283857-jivn33b6982miieq0hlp5n6nnj1hltvc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
