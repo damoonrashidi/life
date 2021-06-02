@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:life/events/base.event.dart';
 
 const Map<int, String> boulderingGrades = {
@@ -29,19 +30,25 @@ class Bouldering implements BaseEvent {
   static const String type = 'bouldering';
 
   @override
+  late String id;
+
+  @override
   String title = 'Bouldering';
 
   @override
   late DateTime timestamp;
 
   @override
-  late int rating;
+  int rating = 1;
 
-  late bool completed;
+  bool completed = false;
+  String highestGrade = '3';
 
-  Bouldering.fromJSON(dynamic data) {
+  Bouldering.fromJSON(QueryDocumentSnapshot data) {
     rating = data['rating'];
-    completed = false;
-    timestamp = data['timestamp'];
+    timestamp =
+        DateTime.fromMillisecondsSinceEpoch(data['timestamp'].seconds * 1000);
+    id = data.id;
+    highestGrade = data['meta']?['highestRating'] ?? '3';
   }
 }

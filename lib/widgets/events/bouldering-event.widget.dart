@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:life/events/bouldering.event.dart';
+import 'package:life/services/bouldering.service.dart';
 import 'package:life/widgets/event-renderer/expandable-event.widget.dart';
 
 class BoulderingEvent extends StatefulWidget {
@@ -16,6 +17,14 @@ class BoulderingEvent extends StatefulWidget {
 class _BoulderingEventState extends State<BoulderingEvent> {
   double _highestGrade = 0;
   String gradeForValue() => boulderingGrades[_highestGrade.round()] ?? '3';
+  BoulderingService boulderingService = BoulderingService();
+  late Bouldering _event;
+
+  @override
+  void initState() {
+    super.initState();
+    _event = Bouldering.fromJSON(widget.event);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,27 +41,34 @@ class _BoulderingEventState extends State<BoulderingEvent> {
               onChanged: (double value) {
                 setState(() {
                   _highestGrade = value;
+                  boulderingService.setHighestGrade(_event.id, gradeForValue());
                 });
               }),
           const Text("How did your session feel?"),
           Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  boulderingService.rateEvent(_event.id, 1);
+                },
                 child: const Text(
                   Emojis.smile_angry_face,
                   style: TextStyle(fontSize: 22),
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  boulderingService.rateEvent(_event.id, 2);
+                },
                 child: const Text(
                   Emojis.smile_neutral_face,
                   style: TextStyle(fontSize: 22),
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  boulderingService.rateEvent(_event.id, 3);
+                },
                 child: const Text(
                   Emojis.smile_smiling_face,
                   style: TextStyle(fontSize: 22),

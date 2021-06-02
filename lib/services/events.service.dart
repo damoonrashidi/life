@@ -20,4 +20,13 @@ class EventsService {
         .where('timestamp', isLessThan: upper)
         .snapshots();
   }
+
+  Future<void> rateEvent(String documentId, int rating) async {
+    return firestore
+        .collection('users')
+        .doc(userId)
+        .collection('events')
+        .doc(documentId)
+        .update({'rating': rating});
+  }
 }

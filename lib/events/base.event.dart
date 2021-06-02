@@ -12,6 +12,7 @@ Set<String> eventTypes = <String>{'bouldering', 'food'};
 abstract class BaseEvent {
   static String type = 'event';
 
+  abstract String id;
   abstract String title;
   abstract DateTime timestamp;
   abstract int rating;
