@@ -55,7 +55,7 @@ class HomeScreenState extends State<HomeScreen> {
             return SafeArea(
               child: CustomScrollView(slivers: [
                 SliverAppBar(
-                    pinned: true,
+                    pinned: false,
                     floating: false,
                     expandedHeight: 80.0,
                     backgroundColor: Colors.transparent,
@@ -101,6 +101,13 @@ class HomeScreenState extends State<HomeScreen> {
                       onPressed: () {
                         eventsService.addEvent(
                             'food', {"calories": 0, "description": ""});
+                        Navigator.pop(context, "food");
+                      },
+                    ),
+                    SimpleDialogOption(
+                      child: const Text("Weight"),
+                      onPressed: () {
+                        eventsService.addEvent('weight', {"weight": 0.0});
                         Navigator.pop(context, "food");
                       },
                     ),

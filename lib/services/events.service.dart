@@ -53,4 +53,13 @@ class EventsService {
         .doc(documentId)
         .update({'rating': rating});
   }
+
+  Future<void> deleteEvent(String documentId) async {
+    return firestore
+        .collection('users')
+        .doc(userId)
+        .collection('events')
+        .doc(documentId)
+        .delete();
+  }
 }

@@ -4,7 +4,7 @@ import 'package:life/events/base.event.dart';
 import 'package:life/services/events.service.dart';
 
 const Map<int, String> ratingMap = {
-  0: Emojis.smile_angry_face,
+  0: Emojis.smile_frowning_face,
   1: Emojis.smile_neutral_face,
   2: Emojis.smile_smiling_face,
 };
