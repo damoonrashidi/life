@@ -21,6 +21,29 @@ class EventsService {
         .snapshots();
   }
 
+  addEvent(String type, Map<String, dynamic> meta) async {
+    return firestore.collection('users').doc(userId).collection('events').add(
+        {"type": type, "timestamp": DateTime.now(), "meta": meta, "rating": 0});
+  }
+
+  Future<void> setMeta(String documentId, Map<String, dynamic> meta) async {
+    firestore
+        .collection('users')
+        .doc(userId)
+        .collection('events')
+        .doc(documentId)
+        .update({'meta': meta});
+  }
+
+  Future<void> setDateTime(String documentId, DateTime timestamp) async {
+    return firestore
+        .collection('users')
+        .doc(userId)
+        .collection('events')
+        .doc(documentId)
+        .update({"timestamp": timestamp});
+  }
+
   Future<void> rateEvent(String documentId, int rating) async {
     return firestore
         .collection('users')

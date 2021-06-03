@@ -3,11 +3,8 @@ import 'package:life/events/base.event.dart';
 
 const Map<int, String> boulderingGrades = {
   0: '3',
-  1: '3+',
   2: '4',
-  3: '4+',
   4: '5',
-  5: '5+',
   6: '6A',
   7: '6A+',
   8: '6B',

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:life/widgets/event-renderer/expandable-event.widget.dart';
 import 'package:life/widgets/events/bouldering-event.widget.dart';
+import 'package:life/widgets/events/food-event.widget.dart';
 import 'package:life/widgets/events/undetermined-event.widget.dart';
 
 class EventRenderer extends StatelessWidget {
@@ -10,14 +12,23 @@ class EventRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget child = UndeterminedEvent(event: event);
+    String title = "Undetermined event";
+
     switch (event['type']) {
       case "bouldering":
-        return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: BoulderingEvent(event: event));
+        child = BoulderingEvent(event: event);
+        title = 'Bouldering';
+        break;
 
-      default:
-        return UndeterminedEvent(event: event);
+      case "food":
+        child = FoodEvent(event: event);
+        title = 'Food';
+        break;
     }
+
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: ExpandableEvent(title: title, child: child));
   }
 }

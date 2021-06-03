@@ -63,7 +63,15 @@ class HomeScreenState extends State<HomeScreen> {
                       CircleAvatar(
                           backgroundImage: NetworkImage(user.photoURL!)),
                     ]),
-                SliverToBoxAdapter(child: Text(humanReadableDate)),
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  child: Text(
+                    humanReadableDate,
+                    style: const TextStyle(fontSize: 17),
+                  ),
+                )),
                 SliverList(
                     delegate: SliverChildListDelegate(snapshot.data!.docs
                         .map((event) => EventRenderer(event: event))
@@ -73,7 +81,33 @@ class HomeScreenState extends State<HomeScreen> {
           }),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return SimpleDialog(
+                  title: const Text("Event type"),
+                  children: [
+                    SimpleDialogOption(
+                      child: const Text("Bouldering"),
+                      onPressed: () {
+                        eventsService
+                            .addEvent('bouldering', {"highestGrade": "3"});
+                        Navigator.pop(context, "bouldering");
+                      },
+                    ),
+                    SimpleDialogOption(
+                      child: const Text("Food"),
+                      onPressed: () {
+                        eventsService.addEvent(
+                            'food', {"calories": 0, "description": ""});
+                        Navigator.pop(context, "food");
+                      },
+                    ),
+                  ],
+                );
+              });
+        },
       ),
     );
   }
