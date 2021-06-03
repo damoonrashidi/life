@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:life/events/bouldering.event.dart';
 import 'package:life/services/bouldering.service.dart';
-import 'package:life/widgets/event-renderer/expandable-event.widget.dart';
 import 'package:life/widgets/rating/rating.widget.dart';
 
 class BoulderingEvent extends StatefulWidget {
@@ -16,7 +15,7 @@ class BoulderingEvent extends StatefulWidget {
 
 class _BoulderingEventState extends State<BoulderingEvent> {
   double _highestGrade = 0;
-  String gradeForValue() => boulderingGrades[_highestGrade.round()] ?? '3';
+  String gradeForValue() => boulderingGrades[_highestGrade.round()];
   BoulderingService boulderingService = BoulderingService();
   late Bouldering _event;
 
@@ -24,12 +23,18 @@ class _BoulderingEventState extends State<BoulderingEvent> {
   void initState() {
     super.initState();
     _event = Bouldering.fromJSON(widget.event);
+    _highestGrade = _stepFromGrade(_event.highestGrade);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Text("What was your highest grade?"),
+      Row(
+        children: [
+          const Text("What was your highest grade?"),
+          Text(gradeForValue())
+        ],
+      ),
       Slider(
           value: _highestGrade,
           min: 0,
@@ -47,5 +52,10 @@ class _BoulderingEventState extends State<BoulderingEvent> {
       const Text("How did your session feel?"),
       RatingWidget(event: _event)
     ]);
+  }
+
+  double _stepFromGrade(String grade) {
+    var index = boulderingGrades.indexOf(grade).toDouble();
+    return index;
   }
 }

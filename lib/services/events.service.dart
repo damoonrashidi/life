@@ -18,6 +18,7 @@ class EventsService {
         .collection('events')
         .where('timestamp', isGreaterThan: lower)
         .where('timestamp', isLessThan: upper)
+        .orderBy('timestamp')
         .snapshots();
   }
 

@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:life/events/base.event.dart';
 
-const Map<int, String> boulderingGrades = {
-  0: '3',
-  2: '4',
-  4: '5',
-  6: '6A',
-  7: '6A+',
-  8: '6B',
-  9: '6B+',
-  10: '6C',
-  11: '6C+',
-  12: '7A',
-  13: '7A+',
-  14: '7B',
-  15: '7B+',
-  16: '7C',
-  17: '7C+',
-  18: '8A',
-  19: '8A+',
-  20: '8B',
-  21: '8B+',
-};
+const List<String> boulderingGrades = [
+  '3',
+  '4',
+  '5',
+  '6A',
+  '6A+',
+  '6B',
+  '6B+',
+  '6C',
+  '6C+',
+  '7A',
+  '7A+',
+  '7B',
+  '7B+',
+  '7C',
+  '7C+',
+  '8A',
+  '8A+',
+  '8B',
+  '8B+'
+];
 
 class Bouldering implements BaseEvent {
   static const String type = 'bouldering';
@@ -39,13 +39,13 @@ class Bouldering implements BaseEvent {
   int rating = 1;
 
   bool completed = false;
-  String highestGrade = '3';
+  late String highestGrade;
 
   Bouldering.fromJSON(QueryDocumentSnapshot data) {
     rating = data['rating'];
     timestamp =
         DateTime.fromMillisecondsSinceEpoch(data['timestamp'].seconds * 1000);
     id = data.id;
-    highestGrade = data['meta']?['highestRating'] ?? '3';
+    highestGrade = data['meta']?['highestGrade'] ?? '3';
   }
 }

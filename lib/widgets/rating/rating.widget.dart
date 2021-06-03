@@ -9,19 +9,36 @@ const Map<int, String> ratingMap = {
   2: Emojis.smile_smiling_face,
 };
 
-class RatingWidget extends StatelessWidget {
-  final EventsService _eventsService = EventsService();
+class RatingWidget extends StatefulWidget {
   final BaseEvent event;
 
-  RatingWidget({Key? key, required this.event}) : super(key: key);
+  const RatingWidget({Key? key, required this.event}) : super(key: key);
+
+  @override
+  State<RatingWidget> createState() => _RatingWidgetState();
+}
+
+class _RatingWidgetState extends State<RatingWidget> {
+  final EventsService _eventsService = EventsService();
+
+  ButtonStyle getButtonStyle(int rating) {
+    return ButtonStyle(backgroundColor:
+        MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+      if (widget.event.rating == rating) {
+        return Colors.blue.withOpacity(0.3);
+      }
+      return Colors.transparent;
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         TextButton(
+          style: getButtonStyle(1),
           onPressed: () {
-            _eventsService.rateEvent(event.id, 1);
+            _eventsService.rateEvent(widget.event.id, 1);
           },
           child: Text(
             ratingMap[0]!,
@@ -29,8 +46,9 @@ class RatingWidget extends StatelessWidget {
           ),
         ),
         TextButton(
+          style: getButtonStyle(2),
           onPressed: () {
-            _eventsService.rateEvent(event.id, 2);
+            _eventsService.rateEvent(widget.event.id, 2);
           },
           child: Text(
             ratingMap[1]!,
@@ -38,8 +56,9 @@ class RatingWidget extends StatelessWidget {
           ),
         ),
         TextButton(
+          style: getButtonStyle(3),
           onPressed: () {
-            _eventsService.rateEvent(event.id, 3);
+            _eventsService.rateEvent(widget.event.id, 3);
           },
           child: Text(
             ratingMap[2]!,
