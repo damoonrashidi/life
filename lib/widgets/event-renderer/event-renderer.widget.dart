@@ -9,9 +9,8 @@ import 'package:life/widgets/events/weight-event.widget.dart';
 
 class EventRenderer extends StatelessWidget {
   final QueryDocumentSnapshot event;
-  final EventsService _eventsService = EventsService();
 
-  EventRenderer({Key? key, required this.event}) : super(key: key);
+  const EventRenderer({Key? key, required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +34,8 @@ class EventRenderer extends StatelessWidget {
         break;
     }
 
-    return GestureDetector(
-      onLongPress: () {
-        _eventsService.deleteEvent(event.id);
-      },
-      child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: ExpandableEvent(title: title, child: child)),
-    );
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: ExpandableEvent(title: title, child: child));
   }
 }

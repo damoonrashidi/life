@@ -4,27 +4,22 @@ import 'package:life/events/base.event.dart';
 import 'package:life/services/events.service.dart';
 
 const Map<int, String> ratingMap = {
-  0: Emojis.smile_frowning_face,
+  0: Emojis.smile_angry_face,
   1: Emojis.smile_neutral_face,
   2: Emojis.smile_smiling_face,
 };
 
-class RatingWidget extends StatefulWidget {
+class RatingWidget extends StatelessWidget {
   final BaseEvent event;
+  final Function onRating;
 
-  const RatingWidget({Key? key, required this.event}) : super(key: key);
-
-  @override
-  State<RatingWidget> createState() => _RatingWidgetState();
-}
-
-class _RatingWidgetState extends State<RatingWidget> {
-  final EventsService _eventsService = EventsService();
+  const RatingWidget({Key? key, required this.event, required this.onRating})
+      : super(key: key);
 
   ButtonStyle getButtonStyle(int rating) {
     return ButtonStyle(backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-      if (widget.event.rating == rating) {
+      if (event.rating == rating) {
         return Colors.blue.withOpacity(0.3);
       }
       return Colors.transparent;
@@ -38,7 +33,7 @@ class _RatingWidgetState extends State<RatingWidget> {
         TextButton(
           style: getButtonStyle(1),
           onPressed: () {
-            _eventsService.rateEvent(widget.event.id, 1);
+            onRating(1);
           },
           child: Text(
             ratingMap[0]!,
@@ -48,7 +43,7 @@ class _RatingWidgetState extends State<RatingWidget> {
         TextButton(
           style: getButtonStyle(2),
           onPressed: () {
-            _eventsService.rateEvent(widget.event.id, 2);
+            onRating(2);
           },
           child: Text(
             ratingMap[1]!,
@@ -58,7 +53,7 @@ class _RatingWidgetState extends State<RatingWidget> {
         TextButton(
           style: getButtonStyle(3),
           onPressed: () {
-            _eventsService.rateEvent(widget.event.id, 3);
+            onRating(3);
           },
           child: Text(
             ratingMap[2]!,

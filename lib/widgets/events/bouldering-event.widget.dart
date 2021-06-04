@@ -16,7 +16,7 @@ class BoulderingEvent extends StatefulWidget {
 class _BoulderingEventState extends State<BoulderingEvent> {
   double _highestGrade = 0;
   String gradeForValue() => boulderingGrades[_highestGrade.round()];
-  BoulderingService boulderingService = BoulderingService();
+  BoulderingService _boulderingService = BoulderingService();
   late Bouldering _event;
 
   @override
@@ -47,10 +47,14 @@ class _BoulderingEventState extends State<BoulderingEvent> {
             });
           },
           onChangeEnd: (double value) {
-            boulderingService.setHighestGrade(_event.id, gradeForValue());
+            _boulderingService.setHighestGrade(_event.id, gradeForValue());
           }),
       const Text("How did your session feel?"),
-      RatingWidget(event: _event)
+      RatingWidget(
+          event: _event,
+          onRating: (int rating) {
+            _boulderingService.rateEvent(_event.id, rating);
+          })
     ]);
   }
 
