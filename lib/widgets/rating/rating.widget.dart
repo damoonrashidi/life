@@ -1,7 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:life/events/base.event.dart';
-import 'package:life/services/events.service.dart';
 
 const Map<int, String> ratingMap = {
   0: Emojis.smile_angry_face,
@@ -10,16 +8,16 @@ const Map<int, String> ratingMap = {
 };
 
 class RatingWidget extends StatelessWidget {
-  final BaseEvent event;
+  final int rating;
   final Function onRating;
 
-  const RatingWidget({Key? key, required this.event, required this.onRating})
+  const RatingWidget({Key? key, required this.rating, required this.onRating})
       : super(key: key);
 
-  ButtonStyle getButtonStyle(int rating) {
+  ButtonStyle getButtonStyle(int eventRating) {
     return ButtonStyle(backgroundColor:
         MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
-      if (event.rating == rating) {
+      if (rating == eventRating) {
         return Colors.blue.withOpacity(0.3);
       }
       return Colors.transparent;
@@ -28,6 +26,8 @@ class RatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("RatingWidget: $rating");
+
     return Row(
       children: [
         TextButton(

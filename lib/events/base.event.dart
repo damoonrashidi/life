@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Set<String> eventTypes = <String>{'bouldering', 'food', 'weight'};
+Set<String> eventTypes = <String>{
+  'bouldering',
+  'speed-climbing',
+  'food',
+  'weight'
+};
 
 abstract class BaseEvent {
   static String type = 'event';

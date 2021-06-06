@@ -16,7 +16,7 @@ class BoulderingEvent extends StatefulWidget {
 class _BoulderingEventState extends State<BoulderingEvent> {
   double _highestGrade = 0;
   String gradeForValue() => boulderingGrades[_highestGrade.round()];
-  BoulderingService _boulderingService = BoulderingService();
+  final BoulderingService _boulderingService = BoulderingService();
   late Bouldering _event;
 
   @override
@@ -51,7 +51,7 @@ class _BoulderingEventState extends State<BoulderingEvent> {
           }),
       const Text("How did your session feel?"),
       RatingWidget(
-          event: _event,
+          rating: _event.rating,
           onRating: (int rating) {
             _boulderingService.rateEvent(_event.id, rating);
           })

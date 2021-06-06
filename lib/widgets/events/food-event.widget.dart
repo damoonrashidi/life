@@ -38,29 +38,31 @@ class _FoodEventState extends State<FoodEvent> {
 
   @override
   Widget build(BuildContext context) {
+    print("FoodEvent: ${_event.rating}");
+
     ButtonStyle buttonStyle = ButtonStyle(
         shape: MaterialStateProperty.resolveWith((states) =>
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(32))));
 
-    List<Widget> previousMeals = _latestMeals
-        .map((String food) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              child: OutlinedButton(
-                style: buttonStyle,
-                child: Text(food),
-                onPressed: () => _foodService.setFood(_event, food),
-              ),
-            ))
-        .toList();
+    List<Widget> previousMeals = [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: OutlinedButton(
+          style: buttonStyle,
+          onPressed: () {},
+          child: const Text("Type something..."),
+        ),
+      )
+    ];
 
-    previousMeals.add(Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: OutlinedButton(
-        style: buttonStyle,
-        onPressed: () {},
-        child: const Text("Type something..."),
-      ),
-    ));
+    previousMeals.addAll(_latestMeals.map((String food) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: OutlinedButton(
+            style: buttonStyle,
+            child: Text(food),
+            onPressed: () => _foodService.setFood(_event, food),
+          ),
+        )));
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Text("What did you eat?"),
@@ -74,7 +76,7 @@ class _FoodEventState extends State<FoodEvent> {
       ),
       const Text("How was your meal?"),
       RatingWidget(
-          event: _event,
+          rating: _event.rating,
           onRating: (int rating) {
             _foodService.rateEvent(_event.id, rating);
           }),

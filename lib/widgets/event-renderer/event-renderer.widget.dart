@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:life/services/events.service.dart';
 import 'package:life/widgets/event-renderer/expandable-event.widget.dart';
 import 'package:life/widgets/events/bouldering-event.widget.dart';
 import 'package:life/widgets/events/food-event.widget.dart';
+import 'package:life/widgets/events/speed-climbing-event.widget.dart';
 import 'package:life/widgets/events/undetermined-event.widget.dart';
 import 'package:life/widgets/events/weight-event.widget.dart';
 
@@ -14,6 +14,8 @@ class EventRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("EventsRenderer: ${event['rating']}");
+
     Widget child = UndeterminedEvent(event: event);
     String title = "Undetermined event";
 
@@ -21,6 +23,11 @@ class EventRenderer extends StatelessWidget {
       case "bouldering":
         child = BoulderingEvent(event: event);
         title = 'Bouldering';
+        break;
+
+      case "speed-climbing":
+        child = SpeedClimbingEvent(event: event);
+        title = 'Speed Climbing';
         break;
 
       case "food":

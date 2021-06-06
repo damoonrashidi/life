@@ -52,6 +52,8 @@ class HomeScreenState extends State<HomeScreen> {
               return const Center(child: CircularProgressIndicator());
             }
 
+            print("HomeScreen: ${_events.length}");
+
             return SafeArea(
               child: CustomScrollView(slivers: [
                 SliverAppBar(

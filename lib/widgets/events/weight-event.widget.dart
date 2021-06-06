@@ -41,7 +41,7 @@ class _WeightEventState extends State<WeightEvent> {
       ),
       const Text("How did your weigh in feel?"),
       RatingWidget(
-          event: _event,
+          rating: _event.rating,
           onRating: (int rating) {
             _eventsService.rateEvent(_event.id, rating);
           })
