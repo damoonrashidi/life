@@ -10,7 +10,8 @@ class EventsService {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> eventsForDate(DateTime date) {
-    var lower = DateTime(date.year, date.month, date.day, 0, 0, 0);
+    var lower = DateTime(date.year, date.month, date.day, 0, 0, 0)
+        .subtract(Duration(days: 7));
     var upper = DateTime(date.year, date.month, date.day, 23, 59, 59);
     return firestore
         .collection('users')
@@ -18,7 +19,7 @@ class EventsService {
         .collection('events')
         .where('timestamp', isGreaterThan: lower)
         .where('timestamp', isLessThan: upper)
-        .orderBy('timestamp')
+        .orderBy('timestamp', descending: true)
         .snapshots();
   }
 

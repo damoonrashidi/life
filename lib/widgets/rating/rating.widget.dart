@@ -26,8 +26,6 @@ class RatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("RatingWidget: $rating");
-
     return Row(
       children: [
         TextButton(

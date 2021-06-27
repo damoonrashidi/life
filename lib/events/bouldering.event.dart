@@ -23,7 +23,7 @@ const List<String> boulderingGrades = [
   '8B+'
 ];
 
-class Bouldering implements BaseEvent {
+class BoulderingEvent implements BaseEvent {
   static const String type = 'bouldering';
 
   @override
@@ -31,6 +31,12 @@ class Bouldering implements BaseEvent {
 
   @override
   String title = 'Bouldering';
+
+  @override
+  late String subtitle;
+
+  @override
+  String icon = '🧗';
 
   @override
   late DateTime timestamp;
@@ -41,11 +47,13 @@ class Bouldering implements BaseEvent {
   bool completed = false;
   late String highestGrade;
 
-  Bouldering.fromJSON(QueryDocumentSnapshot data) {
+  BoulderingEvent.fromJSON(QueryDocumentSnapshot data) {
     rating = data['rating'];
     timestamp =
         DateTime.fromMillisecondsSinceEpoch(data['timestamp'].seconds * 1000);
     id = data.id;
     highestGrade = data['meta']?['highestGrade'] ?? '3';
+
+    subtitle = 'Your highest grade was $highestGrade';
   }
 }

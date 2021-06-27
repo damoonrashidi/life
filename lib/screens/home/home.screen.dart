@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:life/screens/home/home.helpers.dart';
 import 'package:life/services/events.service.dart';
 import 'package:life/widgets/event-renderer/event-renderer.widget.dart';
+import 'package:life/widgets/screen-header.widget.dart';
+import 'package:life/widgets/timeline-event/timeline-event.widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static const route = '/home';
@@ -17,24 +20,14 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   EventsService eventsService = EventsService();
   var user = FirebaseAuth.instance.currentUser!;
-  var formatter = DateFormat("EEE, MMM d");
   late Stream<QuerySnapshot<Map<String, dynamic>>> _events;
-  late String humanReadableDate;
   DateTime _date = DateTime.now();
+  final formatter = DateFormat.MMMMEEEEd();
 
   @override
   initState() {
     super.initState();
     _events = eventsService.eventsForDate(_date);
-    humanReadableDate = formatter.format(_date);
-  }
-
-  setDate(DateTime date) {
-    setState(() {
-      _date = date;
-      _events = eventsService.eventsForDate(_date);
-      humanReadableDate = formatter.format(_date);
-    });
   }
 
   @override
@@ -52,72 +45,31 @@ class HomeScreenState extends State<HomeScreen> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            print("HomeScreen: ${_events.length}");
+            var groupedEvents = groupByDate(snapshot.data!.docs);
 
-            return SafeArea(
-              child: CustomScrollView(slivers: [
-                SliverAppBar(
-                    pinned: false,
-                    floating: false,
-                    expandedHeight: 80.0,
-                    backgroundColor: Colors.transparent,
-                    actions: [
-                      CircleAvatar(
-                          backgroundImage: NetworkImage(user.photoURL!)),
-                    ]),
-                SliverToBoxAdapter(
-                    child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  child: Text(
-                    humanReadableDate,
-                    style: const TextStyle(fontSize: 17),
-                  ),
-                )),
-                SliverList(
-                    delegate: SliverChildListDelegate(snapshot.data!.docs
-                        .map((event) => EventRenderer(event: event))
-                        .toList()))
-              ]),
-            );
+            List<Widget> slivers = [
+              SliverToBoxAdapter(child: ScreenHeader(user: user)),
+            ];
+
+            groupedEvents.entries.forEach((element) {
+              Widget header = SliverToBoxAdapter(
+                  child: Padding(
+                padding: const EdgeInsets.fromLTRB(32, 32, 0, 16),
+                child: Text(formatter.format(element.key)),
+              ));
+
+              Widget list = SliverList(
+                  delegate: SliverChildListDelegate(element.value
+                      .map((event) => TimelineEvent(
+                          event: event, child: EventRenderer(event: event)))
+                      .toList()));
+
+              slivers.add(header);
+              slivers.add(list);
+            });
+
+            return SafeArea(child: CustomScrollView(slivers: slivers));
           }),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SimpleDialog(
-                  title: const Text("Event type"),
-                  children: [
-                    SimpleDialogOption(
-                      child: const Text("Bouldering"),
-                      onPressed: () {
-                        eventsService
-                            .addEvent('bouldering', {"highestGrade": "3"});
-                        Navigator.pop(context, "bouldering");
-                      },
-                    ),
-                    SimpleDialogOption(
-                      child: const Text("Food"),
-                      onPressed: () {
-                        eventsService.addEvent(
-                            'food', {"calories": 0, "description": ""});
-                        Navigator.pop(context, "food");
-                      },
-                    ),
-                    SimpleDialogOption(
-                      child: const Text("Weight"),
-                      onPressed: () {
-                        eventsService.addEvent('weight', {"weight": 0.0});
-                        Navigator.pop(context, "food");
-                      },
-                    ),
-                  ],
-                );
-              });
-        },
-      ),
     );
   }
 }

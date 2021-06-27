@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:life/events/base.event.dart';
 
-class Food implements BaseEvent {
+class FoodEvent implements BaseEvent {
   static const String type = 'food';
 
   @override
@@ -9,6 +9,12 @@ class Food implements BaseEvent {
 
   @override
   String title = 'Food';
+
+  @override
+  String icon = '🍕';
+
+  @override
+  late String subtitle;
 
   @override
   late DateTime timestamp;
@@ -20,12 +26,14 @@ class Food implements BaseEvent {
   int calories = 0;
   String description = "";
 
-  Food.fromJSON(QueryDocumentSnapshot data) {
+  FoodEvent.fromJSON(QueryDocumentSnapshot data) {
     rating = data['rating'];
     timestamp =
         DateTime.fromMillisecondsSinceEpoch(data['timestamp'].seconds * 1000);
     id = data.id;
     calories = data['meta']?['calories'] ?? '3';
-    description = data['meta']?['description'] ?? '';
+    description = data['meta']?['description'] ?? 'no desc';
+
+    subtitle = description;
   }
 }

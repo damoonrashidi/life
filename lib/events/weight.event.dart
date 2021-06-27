@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:life/events/base.event.dart';
 
-class Weight implements BaseEvent {
+class WeightEvent implements BaseEvent {
   static const String type = 'weight';
 
   @override
@@ -9,6 +9,12 @@ class Weight implements BaseEvent {
 
   @override
   String title = 'Weight';
+
+  @override
+  String icon = '⚖️';
+
+  @override
+  late String subtitle;
 
   @override
   late DateTime timestamp;
@@ -19,11 +25,13 @@ class Weight implements BaseEvent {
   bool completed = false;
   late double weight;
 
-  Weight.fromJSON(QueryDocumentSnapshot data) {
+  WeightEvent.fromJSON(QueryDocumentSnapshot data) {
     rating = data['rating'];
     timestamp =
         DateTime.fromMillisecondsSinceEpoch(data['timestamp'].seconds * 1000);
     id = data.id;
     weight = data['meta']?['weight'];
+
+    subtitle = "You weighed in at ${weight.toString()} kg";
   }
 }

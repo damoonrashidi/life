@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:life/screens/guide/guide.screen.dart';
 import 'package:life/screens/home/home.screen.dart';
@@ -20,6 +21,8 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   _checkLoginState() async {
+    await Firebase.initializeApp();
+
     var user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {

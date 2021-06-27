@@ -4,7 +4,7 @@ import 'package:life/services/events.service.dart';
 class FoodService extends EventsService {
   FoodService() : super();
 
-  Future<void> setFood(Food food, String description) async {
+  Future<void> setFood(FoodEvent food, String description) async {
     setMeta(food.id, {"calories": food.calories, "description": description});
   }
 
@@ -13,7 +13,7 @@ class FoodService extends EventsService {
         .collection('users')
         .doc(userId)
         .collection('events')
-        .where('type', isEqualTo: Food.type)
+        .where('type', isEqualTo: FoodEvent.type)
         .orderBy('timestamp', descending: true)
         .limitToLast(5)
         .get();

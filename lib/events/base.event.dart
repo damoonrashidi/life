@@ -11,7 +11,9 @@ abstract class BaseEvent {
   static String type = 'event';
 
   abstract String id;
+  abstract String icon;
   abstract String title;
+  abstract String subtitle;
   abstract DateTime timestamp;
   abstract int rating;
 
