@@ -11,7 +11,7 @@ class FoodEvent implements BaseEvent {
   String title = 'Food';
 
   @override
-  String icon = '🍕';
+  String icon = '🧆';
 
   @override
   late String subtitle;
@@ -35,5 +35,38 @@ class FoodEvent implements BaseEvent {
     description = data['meta']?['description'] ?? 'no desc';
 
     subtitle = description;
+
+    String? customIcon = _getCustomIcon(description);
+    if (customIcon != null) {
+      icon = customIcon;
+    }
+  }
+
+  String? _getCustomIcon(String food) {
+    food = food.toLowerCase();
+    Map<String, String> map = {
+      "yoghurt": "🥣",
+      "mussli": "🥣",
+      "cereal": "🥣",
+      "avocado": "🥑",
+      "pizza": "🍕",
+      "bar": "🍫",
+      "pasta": "🍝",
+      "hamburger": "🍔",
+      "chocolate": "🍫",
+      "bread": "🥪",
+      "sandwhich": "🥪",
+      "chicken": "🍗",
+    };
+
+    for (int i = 0; i < map.length; i++) {
+      String foodKey =
+          map.keys.firstWhere((key) => food.contains(key), orElse: () => "");
+      if (foodKey != "") {
+        return map[foodKey];
+      }
+    }
+
+    return null;
   }
 }

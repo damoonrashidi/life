@@ -8,7 +8,7 @@ import 'package:life/events/workout.event.dart';
 
 Map<DateTime, List<BaseEvent>> groupByDate(
     List<QueryDocumentSnapshot<Object?>> events) {
-  var map = new Map<DateTime, List<BaseEvent>>();
+  var map = Map<DateTime, List<BaseEvent>>();
 
   events.forEach((data) {
     BaseEvent event = toEvent(data);

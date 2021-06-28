@@ -13,7 +13,7 @@ class ScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -40,8 +40,8 @@ class ScreenHeader extends StatelessWidget {
             ]),
             Container(
               decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
-                border: new Border.all(
+                borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+                border: Border.all(
                   color: Colors.black,
                   width: 3.0,
                 ),

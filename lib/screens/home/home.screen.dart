@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:life/screens/home/home.helpers.dart';
 import 'package:life/services/events.service.dart';
 import 'package:life/widgets/event-renderer.widget.dart';
-import 'package:life/widgets/pill-button.dart';
+import 'package:life/widgets/pill_button.dart';
 import 'package:life/widgets/screen-header.widget.dart';
 import 'package:life/widgets/timeline-event.widget.dart';
 
@@ -22,7 +22,7 @@ class HomeScreenState extends State<HomeScreen> {
   EventsService eventsService = EventsService();
   var user = FirebaseAuth.instance.currentUser!;
   late Stream<QuerySnapshot<Map<String, dynamic>>> _events;
-  DateTime _date = DateTime.now();
+  final DateTime _date = DateTime.now();
 
   @override
   initState() {
@@ -60,11 +60,11 @@ class HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       DateFormat.EEEE().format(element.key) + ", ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 21),
                     ),
                     Text(DateFormat.MMMMd().format(element.key),
-                        style: TextStyle(fontSize: 21)),
+                        style: const TextStyle(fontSize: 21)),
                   ],
                 ),
               ));
@@ -79,7 +79,7 @@ class HomeScreenState extends State<HomeScreen> {
               slivers.add(list);
             });
 
-            slivers.add(SliverToBoxAdapter(
+            slivers.add(const SliverToBoxAdapter(
                 child: Padding(
               padding: EdgeInsets.only(bottom: 150),
             )));

@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:life/events/base.event.dart';
 
 class EventRenderer extends StatelessWidget {
@@ -19,11 +17,11 @@ class EventRenderer extends StatelessWidget {
                   color: Colors.black.withOpacity(0.1),
                   spreadRadius: 4,
                   blurRadius: 24,
-                  offset: Offset(0, 24))
+                  offset: const Offset(0, 24))
             ]),
         width: MediaQuery.of(context).size.width * .7,
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +42,7 @@ class EventRenderer extends StatelessWidget {
                   RoundedHolder(
                       child: Text(
                     event.icon,
-                    style: TextStyle(fontSize: 21),
+                    style: const TextStyle(fontSize: 21),
                   )),
                   Row(
                     children: [
@@ -61,12 +59,12 @@ class EventRenderer extends StatelessWidget {
                           ),
                           onPressed: () {},
                           style: ButtonStyle(
-                              padding:
-                                  MaterialStateProperty.all(EdgeInsets.all(12)),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(12)),
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.black.withOpacity(0.03)),
                               shape: MaterialStateProperty.all<CircleBorder>(
-                                  CircleBorder()))),
+                                  const CircleBorder()))),
                     ],
                   )
                 ],
@@ -85,7 +83,7 @@ class RoundedHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),

@@ -11,7 +11,7 @@ class SpeedClimbingEvent implements BaseEvent {
   String title = 'Speed Climbing';
 
   @override
-  String icon = '🧗';
+  String icon = '⚡️';
 
   @override
   late String subtitle;

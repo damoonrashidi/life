@@ -15,7 +15,7 @@ class FoodService extends EventsService {
         .collection('events')
         .where('type', isEqualTo: FoodEvent.type)
         .orderBy('timestamp', descending: true)
-        .limitToLast(5)
+        .limitToLast(10)
         .get();
 
     return foods.docs
