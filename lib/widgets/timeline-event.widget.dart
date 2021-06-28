@@ -18,10 +18,13 @@ class TimelineEvent extends StatelessWidget {
       children: [
         Container(
             alignment: Alignment.center,
-            width: 70,
+            width: 60,
             child: Text(
               formatter.format(event.timestamp),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context)
+                  .textTheme
+                  .caption!
+                  .copyWith(color: Colors.black45),
             )),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
@@ -29,9 +32,9 @@ class TimelineEvent extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Container(
-                width: 1.5,
-                height: 220,
-                color: Colors.black.withOpacity(0.1),
+                width: 1,
+                height: 160,
+                color: Colors.black.withOpacity(0.05),
               ),
               Container(
                 width: 15,
@@ -45,10 +48,7 @@ class TimelineEvent extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: child,
-        ),
+        child
       ],
     );
   }

@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:life/screens/home/home.header.dart';
 import 'package:life/screens/home/home.helpers.dart';
 import 'package:life/services/events.service.dart';
 import 'package:life/widgets/event-renderer.widget.dart';
 import 'package:life/widgets/pill_button.dart';
-import 'package:life/widgets/screen-header.widget.dart';
 import 'package:life/widgets/timeline-event.widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,9 +47,7 @@ class HomeScreenState extends State<HomeScreen> {
 
             var groupedEvents = groupByDate(snapshot.data!.docs);
 
-            List<Widget> slivers = [
-              SliverToBoxAdapter(child: ScreenHeader(user: user)),
-            ];
+            List<Widget> slivers = [];
 
             groupedEvents.entries.forEach((element) {
               Widget header = SliverToBoxAdapter(
@@ -86,7 +84,12 @@ class HomeScreenState extends State<HomeScreen> {
 
             return SafeArea(
                 child: Stack(alignment: Alignment.bottomCenter, children: [
-              CustomScrollView(slivers: slivers),
+              CustomScrollView(slivers: [
+                HomeHeader(
+                  user: user,
+                ),
+                ...slivers
+              ]),
               IgnorePointer(
                 child: Container(
                   height: MediaQuery.of(context).size.height * .2,

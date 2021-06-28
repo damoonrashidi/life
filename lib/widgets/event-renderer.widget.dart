@@ -21,7 +21,7 @@ class EventRenderer extends StatelessWidget {
             ]),
         width: MediaQuery.of(context).size.width * .7,
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,12 +29,12 @@ class EventRenderer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(event.title,
-                    style: Theme.of(context).textTheme.headline6),
+                    style: Theme.of(context).textTheme.subtitle1),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(event.subtitle,
-                    style: Theme.of(context).textTheme.bodyText2),
+                    style: Theme.of(context).textTheme.caption),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
