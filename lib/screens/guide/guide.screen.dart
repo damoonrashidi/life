@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:life/widgets/sign-in-button.widget.dart/sign-in.widget.dart';
+import 'package:life/widgets/sign-in.widget.dart';
 
 class GuideScreen extends StatefulWidget {
   static const route = '/guide';

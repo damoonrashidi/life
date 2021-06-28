@@ -19,29 +19,28 @@ class TimelineEvent extends StatelessWidget {
       children: [
         Container(
             alignment: Alignment.center,
-            width: 80,
-            child: Text(formatter.format(event.timestamp))),
+            width: 70,
+            child: Text(
+              formatter.format(event.timestamp),
+              style: Theme.of(context).textTheme.caption,
+            )),
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Container(
                 width: 1.5,
-                height: 145,
+                height: 220,
                 color: Colors.black.withOpacity(0.1),
               ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white, width: 3),
-                      color: Colors.blue,
-                    ),
-                  ),
+              Container(
+                width: 15,
+                height: 15,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white, width: 3),
+                  color: Colors.blue,
                 ),
               ),
             ],

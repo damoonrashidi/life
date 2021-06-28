@@ -4,6 +4,7 @@ import 'package:life/events/bouldering.event.dart';
 import 'package:life/events/food.event.dart';
 import 'package:life/events/speed-climbing.event.dart';
 import 'package:life/events/weight.event.dart';
+import 'package:life/events/workout.event.dart';
 
 Map<DateTime, List<BaseEvent>> groupByDate(
     List<QueryDocumentSnapshot<Object?>> events) {
@@ -34,6 +35,9 @@ BaseEvent toEvent(QueryDocumentSnapshot<Object?> data) {
 
     case "weight":
       return WeightEvent.fromJSON(data);
+
+    case "workout":
+      return WorkoutEvent.fromJSON(data);
   }
 
   throw ("Could not determine event type for ${data['type']}");
