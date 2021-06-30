@@ -67,7 +67,6 @@ class HomeHeaderDelegate implements SliverPersistentHeaderDelegate {
         ],
       ),
     );
-    ;
   }
 
   @override

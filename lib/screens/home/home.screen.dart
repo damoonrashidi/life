@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:life/screens/add-event/add-event.screen.dart';
 import 'package:life/screens/home/home.header.dart';
 import 'package:life/screens/home/home.helpers.dart';
 import 'package:life/services/events.service.dart';
+import 'package:life/widgets/event-finder.widget.dart';
 import 'package:life/widgets/event-renderer.widget.dart';
 import 'package:life/widgets/pill_button.dart';
 import 'package:life/widgets/timeline-event.widget.dart';
@@ -49,7 +51,17 @@ class HomeScreenState extends State<HomeScreen> {
 
             List<Widget> slivers = [];
 
-            groupedEvents.entries.forEach((element) {
+            var search = Padding(
+                padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                child: EventFinder(onSelect: (String value) {
+                  print("Selected $value");
+                }));
+
+            slivers.add(SliverToBoxAdapter(
+              child: search,
+            ));
+
+            for (var element in groupedEvents.entries) {
               Widget header = SliverToBoxAdapter(
                   child: Padding(
                 padding: const EdgeInsets.fromLTRB(32, 32, 0, 16),
@@ -75,8 +87,13 @@ class HomeScreenState extends State<HomeScreen> {
 
               slivers.add(header);
               slivers.add(list);
-            });
+            }
 
+            /**
+             * This is the padding at the end of the list to 
+             * not have the add event button cover the last event
+             * in the list.
+             */
             slivers.add(const SliverToBoxAdapter(
                 child: Padding(
               padding: EdgeInsets.only(bottom: 150),
@@ -104,8 +121,11 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 32.0),
+                padding: const EdgeInsets.only(bottom: 40.0),
                 child: PillButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AddEventScreen.route);
+                    },
                     label: "Add another event",
                     icon: Image.asset('assets/images/icons/confetti_color.png',
                         width: 32)),

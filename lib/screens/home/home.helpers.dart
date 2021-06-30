@@ -8,16 +8,16 @@ import 'package:life/events/workout.event.dart';
 
 Map<DateTime, List<BaseEvent>> groupByDate(
     List<QueryDocumentSnapshot<Object?>> events) {
-  var map = Map<DateTime, List<BaseEvent>>();
+  Map<DateTime, List<BaseEvent>> map = {};
 
-  events.forEach((data) {
+  for (var data in events) {
     BaseEvent event = toEvent(data);
     var date = DateTime(
         event.timestamp.year, event.timestamp.month, event.timestamp.day);
 
     map.putIfAbsent(date, () => []);
     map[date]!.add(event);
-  });
+  }
 
   return map;
 }
