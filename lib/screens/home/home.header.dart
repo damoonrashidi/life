@@ -13,7 +13,7 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
       delegate: HomeHeaderDelegate(user: user),
-      pinned: true,
+      pinned: false,
       floating: false,
     );
   }

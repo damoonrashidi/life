@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 
 class PillButton extends StatelessWidget {
   final String label;
-  final Widget icon;
+  final Widget? icon;
   final Function onPressed;
 
   const PillButton(
-      {Key? key,
-      required this.label,
-      required this.icon,
-      required this.onPressed})
+      {Key? key, required this.label, this.icon, required this.onPressed})
       : super(key: key);
 
   @override
@@ -18,10 +15,12 @@ class PillButton extends StatelessWidget {
         onPressed: () {
           onPressed();
         },
-        icon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: icon,
-        ),
+        icon: icon != null
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: icon,
+              )
+            : const Text(""),
         label: Padding(
           padding: const EdgeInsets.fromLTRB(0, 12, 12, 12),
           child: Text(label),

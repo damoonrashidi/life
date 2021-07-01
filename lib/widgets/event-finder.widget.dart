@@ -9,8 +9,11 @@ import 'package:life/events/workout.event.dart';
 
 class EventFinder extends StatefulWidget {
   final Function onSelect;
+  final String placeholder;
 
-  const EventFinder({Key? key, required this.onSelect}) : super(key: key);
+  const EventFinder(
+      {Key? key, required this.onSelect, this.placeholder = "Find an event..."})
+      : super(key: key);
 
   @override
   State<EventFinder> createState() => _EventFinderState();
@@ -20,11 +23,11 @@ class _EventFinderState extends State<EventFinder> {
   String _query = '';
   final TextEditingController _queryController = TextEditingController();
   final Map<String, String> _types = {
-    BoulderingEvent.type: "Bouldering",
-    WorkoutEvent.type: "Workout",
-    FoodEvent.type: "Food",
-    WeightEvent.type: "Weight",
-    SpeedClimbingEvent.type: "Speed climbing",
+    BoulderingEvent.type: "🧗 Bouldering",
+    WorkoutEvent.type: "🏋️‍♀️ Workout",
+    FoodEvent.type: "🍕 Food",
+    WeightEvent.type: "⚖️ Weight",
+    SpeedClimbingEvent.type: "⚡️ Speed climbing",
   };
 
   @override
@@ -43,7 +46,9 @@ class _EventFinderState extends State<EventFinder> {
                     bottomRight: Radius.circular(32)),
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 32, color: Colors.black.withOpacity(0.1))
+                      blurRadius: 32,
+                      color: Colors.black.withOpacity(0.1),
+                      offset: const Offset(0, 24))
                 ],
               ),
               child: Column(
@@ -75,7 +80,7 @@ class _EventFinderState extends State<EventFinder> {
                 icon: const Padding(
                     padding: EdgeInsets.only(left: 16),
                     child: Icon(Icons.search)),
-                hintText: "Find an event...",
+                hintText: widget.placeholder,
                 hintStyle: Theme.of(context).textTheme.caption,
                 border: InputBorder.none),
           ),

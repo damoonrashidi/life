@@ -23,9 +23,16 @@ class EventsService {
         .snapshots();
   }
 
-  addEvent(String type, Map<String, dynamic> meta) async {
-    return firestore.collection('users').doc(userId).collection('events').add(
-        {"type": type, "timestamp": DateTime.now(), "meta": meta, "rating": 0});
+  addEvent(String type,
+      {int rating = 0,
+      DateTime? timestamp,
+      Map<String, dynamic> meta = const {}}) async {
+    return firestore.collection('users').doc(userId).collection('events').add({
+      "type": type,
+      "timestamp": timestamp ?? DateTime.now(),
+      "meta": meta,
+      "rating": rating
+    });
   }
 
   Future<void> setMeta(String documentId, Map<String, dynamic> meta) async {

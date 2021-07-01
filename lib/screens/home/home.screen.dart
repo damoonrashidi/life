@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -25,11 +26,19 @@ class HomeScreenState extends State<HomeScreen> {
   var user = FirebaseAuth.instance.currentUser!;
   late Stream<QuerySnapshot<Map<String, dynamic>>> _events;
   final DateTime _date = DateTime.now();
+  final _confettiController =
+      ConfettiController(duration: const Duration(seconds: 1));
 
   @override
   initState() {
     super.initState();
     _events = eventsService.eventsForDate(_date);
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,9 +62,9 @@ class HomeScreenState extends State<HomeScreen> {
 
             var search = Padding(
                 padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-                child: EventFinder(onSelect: (String value) {
-                  print("Selected $value");
-                }));
+                child: EventFinder(
+                    placeholder: "Filter by event",
+                    onSelect: (String value) {}));
 
             slivers.add(SliverToBoxAdapter(
               child: search,
@@ -122,8 +131,22 @@ class HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 40.0),
+                child: ConfettiWidget(
+                  blastDirectionality: BlastDirectionality.explosive,
+                  blastDirection: -90 * 3.1415 / 180,
+                  maxBlastForce: 50,
+                  numberOfParticles: 30,
+                  minimumSize: const Size(5, 5),
+                  maximumSize: const Size(10, 10),
+                  confettiController: _confettiController,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40.0),
                 child: PillButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      _confettiController.play();
+                      await Future.delayed(const Duration(seconds: 1));
                       Navigator.of(context).pushNamed(AddEventScreen.route);
                     },
                     label: "Add another event",
